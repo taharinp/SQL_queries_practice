@@ -1,0 +1,195 @@
+mysql> use my_tab;
+ERROR 1049 (42000): Unknown database 'my_tab'
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| information_schema |
+| my_db              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use my_db;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| tab             |
++-----------------+
+5 rows in set (0.02 sec)
+
+mysql> select * from p_tab;
++----+-------+------+-------+
+| id | name  | roll | city  |
++----+-------+------+-------+
+|  1 | rahul |  101 | delhi |
+|  2 | rani  |  102 | pune  |
++----+-------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN m_no int (11);
+Query OK, 0 rows affected, 1 warning (1.14 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from p_tab;
++----+-------+------+-------+------+
+| id | name  | roll | city  | m_no |
++----+-------+------+-------+------+
+|  1 | rahul |  101 | delhi | NULL |
+|  2 | rani  |  102 | pune  | NULL |
++----+-------+------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN email varchar (50),
+    -> ADD pin int (50);
+Query OK, 0 rows affected, 1 warning (0.58 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from p_tab;
++----+-------+------+-------+------+-------+------+
+| id | name  | roll | city  | m_no | email | pin  |
++----+-------+------+-------+------+-------+------+
+|  1 | rahul |  101 | delhi | NULL | NULL  | NULL |
+|  2 | rani  |  102 | pune  | NULL | NULL  | NULL |
++----+-------+------+-------+------+-------+------+
+2 rows in set (0.02 sec)
+
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN roll int (11) FIRST;
+ERROR 1060 (42S21): Duplicate column name 'roll'
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN roll_no int (11) FIRST;
+Query OK, 0 rows affected, 1 warning (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from p_tab;
++---------+----+-------+------+-------+------+-------+------+
+| roll_no | id | name  | roll | city  | m_no | email | pin  |
++---------+----+-------+------+-------+------+-------+------+
+|    NULL |  1 | rahul |  101 | delhi | NULL | NULL  | NULL |
+|    NULL |  2 | rani  |  102 | pune  | NULL | NULL  | NULL |
++---------+----+-------+------+-------+------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN s_name varchar (50) AFTER name;
+Query OK, 0 rows affected (0.25 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from p_tab;
++---------+----+-------+--------+------+-------+------+-------+------+
+| roll_no | id | name  | s_name | roll | city  | m_no | email | pin  |
++---------+----+-------+--------+------+-------+------+-------+------+
+|    NULL |  1 | rahul | NULL   |  101 | delhi | NULL | NULL  | NULL |
+|    NULL |  2 | rani  | NULL   |  102 | pune  | NULL | NULL  | NULL |
++---------+----+-------+--------+------+-------+------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN item int (11) NOT NULL;
+Query OK, 0 rows affected, 1 warning (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from p_tab;
++---------+----+-------+--------+------+-------+------+-------+------+------+
+| roll_no | id | name  | s_name | roll | city  | m_no | email | pin  | item |
++---------+----+-------+--------+------+-------+------+-------+------+------+
+|    NULL |  1 | rahul | NULL   |  101 | delhi | NULL | NULL  | NULL |    0 |
+|    NULL |  2 | rani  | NULL   |  102 | pune  | NULL | NULL  | NULL |    0 |
++---------+----+-------+--------+------+-------+------+-------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN item_n int (11) NOT NULL AUTO INCREMENT,
+    -> ADD PRIMARY KEY (item_n);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUTO INCREMENT,
+ADD PRIMARY KEY (item_n)' at line 2
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN item_n int (11) NOT NULL AUTO_INCREMENT,
+    -> ADD PRIMARY KEY (item_n);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> -- Drop existing primary key
+mysql> ALTER TABLE p_tab
+    -> DROP PRIMARY KEY;
+Query OK, 2 rows affected (0.80 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- Add new auto increment primary key
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN item_n INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY;
+Query OK, 0 rows affected, 1 warning (0.93 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> ALTER TABLE p_tab
+    -> ^C
+mysql> select * from p_tab;
++---------+----+-------+--------+------+-------+------+-------+------+------+--------+
+| roll_no | id | name  | s_name | roll | city  | m_no | email | pin  | item | item_n |
++---------+----+-------+--------+------+-------+------+-------+------+------+--------+
+|    NULL |  1 | rahul | NULL   |  101 | delhi | NULL | NULL  | NULL |    0 |      1 |
+|    NULL |  2 | rani  | NULL   |  102 | pune  | NULL | NULL  | NULL |    0 |      2 |
++---------+----+-------+--------+------+-------+------+-------+------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN item_no int NOT NULL AUTO_INCREMENT FIRST PRIMARY KEY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY' at line 2
+mysql> ALTER TABLE p_tab
+    -> DROP PRIMARY KEY;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN item_no INT NOT NULL AUTO_INCREMENT FIRST,
+    -> ADD PRIMARY KEY (item_no);
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> ALTER TABLE p_tab
+    -> MODIFY id INT NOT NULL;
+Query OK, 0 rows affected (0.98 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> ALTER TABLE p_tab
+    -> DROP PRIMARY KEY;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> ALTER TABLE p_tab
+    -> ADD COLUMN item_no INT NOT NULL AUTO_INCREMENT FIRST,
+    -> ADD PRIMARY KEY (item_no);
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> ALTER TABLE p_tab
+    -> DROP PRIMARY KEY;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> ALTER TABLE p_tab
+    -> MODIFY id INT NOT NULL;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE p_tab
+    -> DROP PRIMARY KEY;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> INSERT INTO p_tab
+    -> (id, name, s_name, roll, city, m_no, email, pin, item)
+    -> VALUES
+    -> (3, 'Amit', 'Sharma', 103, 'Mumbai', 9876543210, 'amit@gmail.com', 400001, 0);
+ERROR 1264 (22003): Out of range value for column 'm_no' at row 1
+mysql> ALTER TABLE p_tab
+    -> MODIFY m_no VARCHAR(15);
+Query OK, 2 rows affected (0.48 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO p_tab
+    -> (id, name, s_name, roll, city, m_no, email, pin, item)
+    -> VALUES
+    -> (3, 'Amit', 'Sharma', 103, 'Mumbai', '9876543210', 'amit@gmail.com', 400001, 0);
+Query OK, 1 row affected (0.03 sec)
+

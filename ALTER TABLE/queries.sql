@@ -1,0 +1,40 @@
+USE my_db;
+
+SHOW TABLES;
+
+SELECT * FROM p_tab;
+
+ALTER TABLE p_tab
+ADD COLUMN m_no INT(11);
+
+ALTER TABLE p_tab
+ADD COLUMN email VARCHAR(50),
+ADD COLUMN pin INT(50);
+
+ALTER TABLE p_tab
+ADD COLUMN roll_no INT(11) FIRST;
+
+ALTER TABLE p_tab
+ADD COLUMN s_name VARCHAR(50) AFTER name;
+
+ALTER TABLE p_tab
+ADD COLUMN item INT(11) NOT NULL;
+
+ALTER TABLE p_tab
+DROP PRIMARY KEY;
+
+ALTER TABLE p_tab
+ADD COLUMN item_n INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY;
+
+ALTER TABLE p_tab
+MODIFY id INT NOT NULL;
+
+ALTER TABLE p_tab
+MODIFY m_no VARCHAR(15);
+
+INSERT INTO p_tab
+(id, name, s_name, roll, city, m_no, email, pin, item)
+VALUES
+(3, 'Amit', 'Sharma', 103, 'Mumbai', '9876543210', 'amit@gmail.com', 400001, 0);
+
+SELECT * FROM p_tab;

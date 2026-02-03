@@ -1,0 +1,72 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| information_schema |
+| my_db              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.96 sec)
+
+mysql> use my_db;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| tab             |
++-----------------+
+5 rows in set (0.32 sec)
+
+mysql> select *from std;
++------+-------+------+--------+
+| id   | name  | roll | city   |
++------+-------+------+--------+
+|    1 | ram   |   34 | pune   |
+| NULL | pooja |   52 | ptna   |
+|    5 | raj   |   65 | mumbai |
++------+-------+------+--------+
+3 rows in set (0.44 sec)
+
+mysql> select name from std AS widhyaarthi;
++-------+
+| name  |
++-------+
+| ram   |
+| pooja |
+| raj   |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select *from widhyaarthi;
+ERROR 1146 (42S02): Table 'my_db.widhyaarthi' doesn't exist
+mysql> select name AS std_name FROM std;
++----------+
+| std_name |
++----------+
+| ram      |
+| pooja    |
+| raj      |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select name AS 'std name' FROM std;
++----------+
+| std name |
++----------+
+| ram      |
+| pooja    |
+| raj      |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> cd C:\Users\Taharin\OneDrive\Desktop\SQL\AIRTHMETIC OPERATORS
+ERROR: 
+Unknown command '\U'.

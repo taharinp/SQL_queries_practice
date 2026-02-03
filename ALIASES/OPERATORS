@@ -1,0 +1,4 @@
+    -> exit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cd C:\Users
+exit' at line 1
+mysql> exit;

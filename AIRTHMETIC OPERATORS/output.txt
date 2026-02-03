@@ -1,0 +1,115 @@
+mysql> select * from std;
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| information_schema |
+| my_db              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.14 sec)
+
+mysql> use my_db;
+Database changed
+mysql> show tables
+    -> ;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| tab             |
++-----------------+
+5 rows in set (0.11 sec)
+
+mysql> select * from std;
++------+-------+------+--------+
+| id   | name  | roll | city   |
++------+-------+------+--------+
+|    1 | ram   |   34 | pune   |
+| NULL | pooja |   52 | ptna   |
+|    5 | raj   |   65 | mumbai |
++------+-------+------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select * from p_tab;
++----+-------+------+-------+
+| id | name  | roll | city  |
++----+-------+------+-------+
+|  1 | rahul |  101 | delhi |
+|  2 | rani  |  102 | pune  |
++----+-------+------+-------+
+2 rows in set (0.14 sec)
+
+mysql> select * from tab;
++----+------+------+
+| id | name | city |
++----+------+------+
+|  1 | raj  | pune |
++----+------+------+
+1 row in set (0.46 sec)
+
+mysql> select * from new_tab;
+Empty set (0.04 sec)
+
+mysql> select * from p_tab;
++----+-------+------+-------+
+| id | name  | roll | city  |
++----+-------+------+-------+
+|  1 | rahul |  101 | delhi |
+|  2 | rani  |  102 | pune  |
++----+-------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT id,name,roll, roll+10 FROM p_tab;
++----+-------+------+---------+
+| id | name  | roll | roll+10 |
++----+-------+------+---------+
+|  1 | rahul |  101 |     111 |
+|  2 | rani  |  102 |     112 |
++----+-------+------+---------+
+2 rows in set (0.09 sec)
+
+mysql> SELECT id,name,roll, roll+10 AS "new roll" FROM p_tab;
++----+-------+------+----------+
+| id | name  | roll | new roll |
++----+-------+------+----------+
+|  1 | rahul |  101 |      111 |
+|  2 | rani  |  102 |      112 |
++----+-------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT id,name,roll, roll-10 AS "new roll" FROM p_tab;
++----+-------+------+----------+
+| id | name  | roll | new roll |
++----+-------+------+----------+
+|  1 | rahul |  101 |       91 |
+|  2 | rani  |  102 |       92 |
++----+-------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT id,name,roll, roll*5 AS "new roll" FROM p_tab;
++----+-------+------+----------+
+| id | name  | roll | new roll |
++----+-------+------+----------+
+|  1 | rahul |  101 |      505 |
+|  2 | rani  |  102 |      510 |
++----+-------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT id,name,roll, roll/5 AS "new roll" FROM p_tab;
++----+-------+------+----------+
+| id | name  | roll | new roll |
++----+-------+------+----------+
+|  1 | rahul |  101 |  20.2000 |
+|  2 | rani  |  102 |  20.4000 |
++----+-------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> exit;
