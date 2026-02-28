@@ -1,0 +1,123 @@
+mysql> use my_db;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| student         |
+| tab             |
++-----------------+
+6 rows in set (0.47 sec)
+
+mysql> use my_tab;
+ERROR 1049 (42000): Unknown database 'my_tab'
+mysql> select * from my_tab;
++--------+------+------+------+---------+
+| name   | roll | pin  | id   | result  |
++--------+------+------+------+---------+
+| kumar  |   28 |  587 |   10 | group A |
+| sona   |   23 |   50 |   40 | group B |
+| hjp    |   48 |   50 |   40 | group A |
+| jishan |   65 |   50 |   40 | group A |
++--------+------+------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select MIN(roll) FROM my_tab;
++-----------+
+| MIN(roll) |
++-----------+
+|        23 |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> select MAX(roll) FROM my_tab;
++-----------+
+| MAX(roll) |
++-----------+
+|        65 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select SUM(roll) FROM my_tab;
++-----------+
+| SUM(roll) |
++-----------+
+|       164 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select AVG(roll) FROM my_tab;
++-----------+
+| AVG(roll) |
++-----------+
+|   41.0000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select SQRT(roll) FROM my_tab;
++-------------------+
+| SQRT(roll)        |
++-------------------+
+| 5.291502622129181 |
+| 4.795831523312719 |
+| 6.928203230275509 |
+|  8.06225774829855 |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select ROUND(roll) FROM my_tab;
++-------------+
+| ROUND(roll) |
++-------------+
+|          28 |
+|          23 |
+|          48 |
+|          65 |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> select AVG(roll) AS e_roll FROM my_tab;
++---------+
+| e_roll  |
++---------+
+| 41.0000 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> Terminal close -- exit!
+mysql> CREATE DATABASE testdb;
+Query OK, 1 row affected (0.19 sec)
+
+mysql> USE testdb;
+Database changed
+mysql> 
+mysql> CREATE TABLE student (
+    ->     id INT,
+    ->     name VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> 
+mysql> INSERT INTO student VALUES (1, 'Rahul');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM student;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Rahul |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE product(
+    -> id int auto_increment primary key,
+    -> pname varchar (40),
+    -> price DECIMAL(7,2) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.69 sec)
+
+mysql> Terminal close -- exit!

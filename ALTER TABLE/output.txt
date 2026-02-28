@@ -193,3 +193,4 @@ mysql> INSERT INTO p_tab
     -> (3, 'Amit', 'Sharma', 103, 'Mumbai', '9876543210', 'amit@gmail.com', 400001, 0);
 Query OK, 1 row affected (0.03 sec)
 
+mysql> Terminal close -- exit!

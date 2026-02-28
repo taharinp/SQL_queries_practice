@@ -1,0 +1,669 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| information_schema |
+| my_db              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (1.26 sec)
+
+mysql> use emp;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_emp |
++---------------+
+| emp           |
+| employee      |
+| k             |
++---------------+
+3 rows in set (0.27 sec)
+
+mysql> select * from emp;
++----+-------+----------+
+| id | name  | city     |
++----+-------+----------+
+|  1 | raj   | delhi    |
+|  2 | rani  | pune     |
+|  3 | poja  | del      |
+|  6 | RAHUL | KOLKATA  |
+| 10 | pops  | delhi    |
+| 32 | RAja  | ranchi   |
+| 33 | RAjaa | ranccchi |
++----+-------+----------+
+7 rows in set (0.15 sec)
+
+mysql> ALTER TABLE name
+    -> CHANGE COLUMN name e_name varchar(50);
+ERROR 1146 (42S02): Table 'emp.name' doesn't exist
+mysql> ALTER TABLE emp
+    -> CHANGE COLUMN name e_name varchar(50);
+Query OK, 0 rows affected (1.61 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++----+--------+----------+
+| id | e_name | city     |
++----+--------+----------+
+|  1 | raj    | delhi    |
+|  2 | rani   | pune     |
+|  3 | poja   | del      |
+|  6 | RAHUL  | KOLKATA  |
+| 10 | pops   | delhi    |
+| 32 | RAja   | ranchi   |
+| 33 | RAjaa  | ranccchi |
++----+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE name
+    -> CHANGE COLUMN name e_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> ALTER TABLE emp
+    -> CHANGE COLUMN name e_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> ALTER TABLE emp
+    -> CHANGE COLUMN e_name emp_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> select * from emp;
++----+--------+----------+
+| id | e_name | city     |
++----+--------+----------+
+|  1 | raj    | delhi    |
+|  2 | rani   | pune     |
+|  3 | poja   | del      |
+|  6 | RAHUL  | KOLKATA  |
+| 10 | pops   | delhi    |
+| 32 | RAja   | ranchi   |
+| 33 | RAjaa  | ranccchi |
++----+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE emp
+    -> CHANGE COLUMN e_name emp_name varchar(50),
+    -> CHANGE COLUMN city cittyyy varchar(50);
+Query OK, 0 rows affected (0.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++----+----------+----------+
+| id | emp_name | cittyyy  |
++----+----------+----------+
+|  1 | raj      | delhi    |
+|  2 | rani     | pune     |
+|  3 | poja     | del      |
+|  6 | RAHUL    | KOLKATA  |
+| 10 | pops     | delhi    |
+| 32 | RAja     | ranchi   |
+| 33 | RAjaa    | ranccchi |
++----+----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> create table test(
+    -> id int UNIQUE KEY,
+    -> name varchar(50)
+    -> );
+Query OK, 0 rows affected (0.41 sec)
+
+mysql> desc test;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  | UNI | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.17 sec)
+
+mysql> ALTER TABLE test
+    -> CHANGE COLUMN id emp_id int(50) NOT NULL,
+    -> ADD PRIMARY KEY(emp_id) ;
+Query OK, 0 rows affected, 1 warning (0.69 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from test;
+Empty set (0.00 sec)
+
+mysql> desc test;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_id | int         | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE test
+    -> CHANE COLUMN name char(40);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CHANE COLUMN name char(40)' at line 2
+mysql> ALTER TABLE test
+    -> MODIFY COLUMN name char(40);
+Query OK, 0 rows affected (0.69 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc test;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| emp_id | int      | NO   | PRI | NULL    |       |
+| name   | char(40) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+2 rows in set (0.07 sec)
+
+mysql> ALTER TABLE test
+    -> CHANE COLUMN name char(40) NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CHANE COLUMN name char(40) NOT NULL' at line 2
+mysql> ALTER TABLE test
+    -> MODIFY COLUMN name char(40) NOT NULL;
+Query OK, 0 rows affected (0.31 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE test
+    -> DROP COLUMN name;
+Query OK, 0 rows affected (0.52 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from test;
+Empty set (0.01 sec)
+
+mysql> desc test;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| emp_id | int  | NO   | PRI | NULL    |       |
++--------+------+------+-----+---------+-------+
+1 row in set (0.02 sec)
+
+mysql> ALTER TABLE test
+    -> DROP PRIMARY KEY emp_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emp_id' at line 2
+mysql> SHOW INDEX from test;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| test  |          0 | PRIMARY  |            1 | emp_id      | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| test  |          0 | id       |            1 | emp_id      | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.73 sec)
+
+mysql> ALTER TABLE test
+    -> DROP INDEX emp_id;mp_id;
+ERROR 1091 (42000): Can't DROP 'emp_id'; check that column/key exists
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mp_id' at line 1
+mysql> ALTER TABLE test
+    -> DROP INDEX emp_id;
+ERROR 1091 (42000): Can't DROP 'emp_id'; check that column/key exists
+mysql> ALTER TABLE test
+    -> DROP INDEX (id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id)' at line 2
+mysql> ALTER TABLE test
+    -> DROP INDEX id;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc test;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| emp_id | int  | NO   | PRI | NULL    |       |
++--------+------+------+-----+---------+-------+
+1 row in set (0.10 sec)
+
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_emp |
++---------------+
+| emp           |
+| employee      |
+| k             |
+| test          |
++---------------+
+4 rows in set (0.37 sec)
+
+mysql> DROP employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee' at line 1
+mysql> DROP TABLE employee;
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_emp |
++---------------+
+| emp           |
+| k             |
+| test          |
++---------------+
+3 rows in set (0.01 sec)
+
+mysql> desc k;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.02 sec)
+
+mysql> TRUNCATE TABLE k;
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> desc k;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> RENAME TABLE id TO emo_id;
+ERROR 1146 (42S02): Table 'emp.id' doesn't exist
+mysql> select * from emp;
++----+----------+----------+
+| id | emp_name | cittyyy  |
++----+----------+----------+
+|  1 | raj      | delhi    |
+|  2 | rani     | pune     |
+|  3 | poja     | del      |
+|  6 | RAHUL    | KOLKATA  |
+| 10 | pops     | delhi    |
+| 32 | RAja     | ranchi   |
+| 33 | RAjaa    | ranccchi |
++----+----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> RENAME TABLE emo_name TO name;
+ERROR 1146 (42S02): Table 'emp.emo_name' doesn't exist
+mysql> RENAME TABLE emp TO employe;
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_emp |
++---------------+
+| employe       |
+| k             |
+| test          |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| information_schema |
+| my_db              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.02 sec)
+
+mysql> ALTER DATABASE sys;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SHOW COLUMNS FROM emp;
+ERROR 1146 (42S02): Table 'emp.emp' doesn't exist
+mysql> use emp;
+Database changed
+mysql> SHOW COLUMNS FROM emp;
+ERROR 1146 (42S02): Table 'emp.emp' doesn't exist
+mysql> SHOW COLUMNS FROM emp;use my_db;
+ERROR 1146 (42S02): Table 'emp.emp' doesn't exist
+Database changed
+mysql> use my_db;
+Database changed
+mysql> SHOW COLUMNS FROM my_db;
+ERROR 1146 (42S02): Table 'my_db.my_db' doesn't exist
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| tab             |
++-----------------+
+5 rows in set (0.01 sec)
+
+mysql> SHOW COLUMNS FROM my_tab;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(50) | YES  |     | NULL    |       |
+| roll  | int         | YES  |     | NULL    |       |
+| pin   | int         | YES  |     | NULL    |       |
+| id    | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.06 sec)
+
+mysql> SHOW CREATE DATABASES my_db;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABASES my_db' at line 1
+mysql> SHOW CREATE DATABASE my_db;
++----------+---------------------------------------------------------------------------------------------------------------------------------+
+| Database | Create Database                                                                                                                 |
++----------+---------------------------------------------------------------------------------------------------------------------------------+
+| my_db    | CREATE DATABASE `my_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */ |
++----------+---------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> use my_db;
+Database changed
+mysql> SHOW CREATE TABLE student;
+ERROR 1146 (42S02): Table 'my_db.student' doesn't exist
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| tab             |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE my_tab;
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                               |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| my_tab | CREATE TABLE `my_tab` (
+  `name` varchar(50) DEFAULT NULL,
+  `roll` int DEFAULT NULL,
+  `pin` int DEFAULT NULL,
+  `id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.14 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| tab             |
++-----------------+
+5 rows in set (0.21 sec)
+
+mysql> select * from my_tab;
++--------+------+------+------+
+| name   | roll | pin  | id   |
++--------+------+------+------+
+| raj    |  123 |  500 |   10 |
+| sona   |   23 |   50 |   40 |
+| hina   |   45 |   75 |   98 |
+| hjp    |   48 |   50 |   40 |
+| jishan |   65 |   50 |   40 |
+| jon    |   45 |  200 |   98 |
++--------+------+------+------+
+6 rows in set (0.08 sec)
+
+mysql> UPDATE TABBLE my_tab
+    -> SET name='kumar' , roll=28
+    -> WHERE id=10;
+ERROR 1146 (42S02): Table 'my_db.tabble' doesn't exist
+mysql> UPDATE  my_tab
+    -> SET name='kumar' , roll=28
+    -> WHERE id=10;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from my_tab;
++--------+------+------+------+
+| name   | roll | pin  | id   |
++--------+------+------+------+
+| kumar  |   28 |  500 |   10 |
+| sona   |   23 |   50 |   40 |
+| hina   |   45 |   75 |   98 |
+| hjp    |   48 |   50 |   40 |
+| jishan |   65 |   50 |   40 |
+| jon    |   45 |  200 |   98 |
++--------+------+------+------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| tab             |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from my_tab;
++--------+------+------+------+
+| name   | roll | pin  | id   |
++--------+------+------+------+
+| kumar  |   28 |  500 |   10 |
+| sona   |   23 |   50 |   40 |
+| hina   |   45 |   75 |   98 |
+| hjp    |   48 |   50 |   40 |
+| jishan |   65 |   50 |   40 |
+| jon    |   45 |  200 |   98 |
++--------+------+------+------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE my_tab
+    -> SET pin=587
+    -> WHERE id=10;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from my_tab;
++--------+------+------+------+
+| name   | roll | pin  | id   |
++--------+------+------+------+
+| kumar  |   28 |  587 |   10 |
+| sona   |   23 |   50 |   40 |
+| hina   |   45 |   75 |   98 |
+| hjp    |   48 |   50 |   40 |
+| jishan |   65 |   50 |   40 |
+| jon    |   45 |  200 |   98 |
++--------+------+------+------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER  TABLE my_tab
+    -> ADD COLUMN result varchar(50);
+Query OK, 0 rows affected (1.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from my_tab;
++--------+------+------+------+--------+
+| name   | roll | pin  | id   | result |
++--------+------+------+------+--------+
+| kumar  |   28 |  587 |   10 | NULL   |
+| sona   |   23 |   50 |   40 | NULL   |
+| hina   |   45 |   75 |   98 | NULL   |
+| hjp    |   48 |   50 |   40 | NULL   |
+| jishan |   65 |   50 |   40 | NULL   |
+| jon    |   45 |  200 |   98 | NULL   |
++--------+------+------+------+--------+
+6 rows in set (0.01 sec)
+
+mysql> UPDATE my_tab
+    -> SET result =
+    -> CASE
+    -> WHEN roll>30 THEN 'group A'
+    -> WHEN roll<30 THEN 'group B'
+    -> ELSE 'GROUP AA'
+    -> END;
+Query OK, 6 rows affected (0.45 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select *from my_tab;
++--------+------+------+------+---------+
+| name   | roll | pin  | id   | result  |
++--------+------+------+------+---------+
+| kumar  |   28 |  587 |   10 | group B |
+| sona   |   23 |   50 |   40 | group B |
+| hina   |   45 |   75 |   98 | group A |
+| hjp    |   48 |   50 |   40 | group A |
+| jishan |   65 |   50 |   40 | group A |
+| jon    |   45 |  200 |   98 | group A |
++--------+------+------+------+---------+
+6 rows in set (0.02 sec)
+
+mysql> UPDATE my_tab;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> UPDATE my_tab
+    -> SET result='group A'
+    -> WHERE id=10;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from my_tab;
++--------+------+------+------+---------+
+| name   | roll | pin  | id   | result  |
++--------+------+------+------+---------+
+| kumar  |   28 |  587 |   10 | group A |
+| sona   |   23 |   50 |   40 | group B |
+| hina   |   45 |   75 |   98 | group A |
+| hjp    |   48 |   50 |   40 | group A |
+| jishan |   65 |   50 |   40 | group A |
+| jon    |   45 |  200 |   98 | group A |
++--------+------+------+------+---------+
+6 rows in set (0.00 sec)
+
+mysql> DELETE FROM my_tab
+    -> WHERE id=98;
+Query OK, 2 rows affected (0.02 sec)
+
+mysql> select *from my_tab;
++--------+------+------+------+---------+
+| name   | roll | pin  | id   | result  |
++--------+------+------+------+---------+
+| kumar  |   28 |  587 |   10 | group A |
+| sona   |   23 |   50 |   40 | group B |
+| hjp    |   48 |   50 |   40 | group A |
+| jishan |   65 |   50 |   40 | group A |
++--------+------+------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE student LIKE my_tab;
+Query OK, 0 rows affected (0.88 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(50) | YES  |     | NULL    |       |
+| roll   | int         | YES  |     | NULL    |       |
+| pin    | int         | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| result | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.29 sec)
+
+mysql> select *from student;
+Empty set (0.07 sec)
+
+mysql> INSERT student SELECT * FROM my_tab;
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select *from student;
++--------+------+------+------+---------+
+| name   | roll | pin  | id   | result  |
++--------+------+------+------+---------+
+| kumar  |   28 |  587 |   10 | group A |
+| sona   |   23 |   50 |   40 | group B |
+| hjp    |   48 |   50 |   40 | group A |
+| jishan |   65 |   50 |   40 | group A |
++--------+------+------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE new_db;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| information_schema |
+| my_db              |
+| mysql              |
+| new_db             |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> use my_db;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_my_db |
++-----------------+
+| my_tab          |
+| new_tab         |
+| p_tab           |
+| std             |
+| student         |
+| tab             |
++-----------------+
+6 rows in set (0.57 sec)
+
+mysql> USE new_db;
+Database changed
+mysql> show tables;
+Empty set (0.01 sec)
+
+mysql> CREATE TABLE p_tab LIKE my_db.emp;
+ERROR 1146 (42S02): Table 'my_db.emp' doesn't exist
+mysql> CREATE TABLE p_tab LIKE my_db.p_tab;
+Query OK, 0 rows affected (1.75 sec)
+
+mysql> show tables
+    -> ;
++------------------+
+| Tables_in_new_db |
++------------------+
+| p_tab            |
++------------------+
+1 row in set (0.01 sec)
+
+mysql> desc p_tan;
+ERROR 1146 (42S02): Table 'new_db.p_tan' doesn't exist
+mysql> desc p_tab;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| roll_no | int         | YES  |     | NULL    |                |
+| id      | int         | NO   |     | NULL    |                |
+| name    | varchar(40) | YES  |     | NULL    |                |
+| s_name  | varchar(50) | YES  |     | NULL    |                |
+| roll    | int         | YES  | UNI | NULL    |                |
+| city    | varchar(50) | YES  |     | NULL    |                |
+| m_no    | varchar(15) | YES  |     | NULL    |                |
+| email   | varchar(50) | YES  |     | NULL    |                |
+| pin     | int         | YES  |     | NULL    |                |
+| item    | int         | NO   |     | NULL    |                |
+| item_n  | int         | NO   | PRI | NULL    | auto_increment |
++---------+-------------+------+-----+---------+----------------+
+11 rows in set (0.13 sec)
+
+mysql> INSERT p_tab SELECT* FROM my_db.p_tab;
+Query OK, 3 rows affected (0.28 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select *from p_tab;
++---------+----+-------+--------+------+--------+------------+----------------+--------+------+--------+
+| roll_no | id | name  | s_name | roll | city   | m_no       | email          | pin    | item | item_n |
++---------+----+-------+--------+------+--------+------------+----------------+--------+------+--------+
+|    NULL |  1 | rahul | NULL   |  101 | delhi  | NULL       | NULL           |   NULL |    0 |      1 |
+|    NULL |  2 | rani  | NULL   |  102 | pune   | NULL       | NULL           |   NULL |    0 |      2 |
+|    NULL |  3 | Amit  | Sharma |  103 | Mumbai | 9876543210 | amit@gmail.com | 400001 |    0 |      3 |
++---------+----+-------+--------+------+--------+------------+----------------+--------+------+--------+
+3 rows in set (0.04 sec)
+
+mysql> Terminal close -- exit!
