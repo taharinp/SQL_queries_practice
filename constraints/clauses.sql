@@ -47,6 +47,7 @@ SELECT * FROM flights;
 
 SELECT * FROM flights where duration >500 and destination="paris";
 SELECT * FROM flights where duration >500 or destination="paris";
+SELECT * FROM flights where  destination in ("paris");
 
 
 
@@ -75,3 +76,33 @@ select *from flights order by duration desc limit 2 offset 1;
 select distinct origin from flights;
 
 #aggregate function
+
+#function -block of code,defined to complete desired task
+
+#types -inbuilt,user defined
+#sum(),max,min,avg,count
+select sum(duration)  from flights;
+select sum(duration) as dur from flights;
+select count(duration) as total_record from flights;
+select max(duration) as longest from flights;
+select min(duration) as fastest from flights;
+select avg(duration) as avg from flights;
+
+#pattern matching-
+#display fligt with nam start with n
+#% -zero or more occurances
+select* from flights where origin like "n%";
+
+#end
+select* from flights where origin like "%m";
+
+select* from flights where origin like "l%n";
+
+
+#origin n dest end n
+
+select* from flights where origin like "n%" and destination like "%n";
+
+
+select* from flights where origin like "n%" or destination like "%n";
+
