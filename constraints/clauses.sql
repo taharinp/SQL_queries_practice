@@ -106,3 +106,21 @@ select* from flights where origin like "n%" and destination like "%n";
 
 select* from flights where origin like "n%" or destination like "%n";
 
+
+#  -wildcard character matching
+# one or more charatcetr
+
+select *from flights where origin like "n_______";
+
+
+select *from flights where origin like "____";
+
+#string function-lengths,concatenation,trim(),ltri(),rtrim(),substring
+
+
+
+
+
+
+
+
