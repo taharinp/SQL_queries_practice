@@ -117,10 +117,16 @@ select *from flights where origin like "____";
 
 #string function-lengths,concatenation,trim(),ltri(),rtrim(),substring
 
+select origin,length(origin ) as letters from flights;
+
+select concat("balaji ","" , "ghate")as fullname from flights;
+
+select concat(origin, "-",destination)as ori_dest from flights;
 
 
+select trim("                itroots" )as clean;
+select ltrim("                itroots" )as clean;
+select length(ltrim("             itroots    " ))as clean;
 
-
-
-
+select reverse("life");
 
